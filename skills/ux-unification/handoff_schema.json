@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "UX Unification Handoff",
+  "description": "Summary of a ux-unification run, passed to another skill, agent or person so context isn't lost. Compatible with the common skill-handoff fields (source_skill, target_skill, summary, key_decisions, open_questions, confidence_level, artifacts).",
+  "type": "object",
+  "properties": {
+    "source_skill": { "type": "string", "const": "ux-unification" },
+    "target_skill": { "type": "string", "description": "Next skill or agent ID, or 'human'." },
+    "feature": { "type": "string", "description": "Feature slug, matching .ux-unify/features/<slug>." },
+    "summary": { "type": "string", "description": "2–3 plain-language sentences." },
+    "placement": { "type": "string", "description": "Where the feature lives, e.g. 'Strategy › Rules › Rule detail › Versions tab'." },
+    "key_decisions": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Decisions made, each ending with a tag: [GROUNDED], [INFERRED] or [SPECULATIVE]."
+    },
+    "needs_review": { "type": "array", "items": { "type": "string" }, "description": "Medium/low-confidence decisions awaiting a human." },
+    "open_questions": { "type": "array", "items": { "type": "string" } },
+    "unification_debt": { "type": "array", "items": { "type": "string" }, "description": "New debt found, referencing debt.md numbers." },
+    "confidence_level": { "type": "string", "enum": ["high", "medium", "low"] },
+    "artifacts": { "type": "array", "items": { "type": "string" }, "description": "Paths to files produced." }
+  },
+  "required": ["source_skill", "target_skill", "feature", "summary", "key_decisions", "confidence_level"]
+}

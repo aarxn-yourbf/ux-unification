@@ -1,0 +1,14 @@
+--- a/src/pages/RuleDetailPage.tsx
++++ b/src/pages/RuleDetailPage.tsx
+@@
++import { RuleVersionsTab } from "./rules/RuleVersionsTab";
+@@
+-      <Tabs tabs={[{ id: "definition", label: "Definition" }, { id: "performance", label: "Performance" }]} active={tab} onChange={setTab} />
++      <Tabs tabs={[{ id: "definition", label: "Definition" }, { id: "performance", label: "Performance" }, { id: "versions", label: "Versions" }]} active={tab} onChange={setTab} />
++      {tab === "versions" && (
++        <RuleVersionsTab
++          versions={versions /* from rule versions API */}
++          role={currentRole /* from auth context */}
++          onRestore={async v => { await restoreVersion(v.id); setTab("definition"); }}
++        />
++      )}

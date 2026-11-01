@@ -1,0 +1,36 @@
+--- a/src/components/ui/DataTable.tsx
++++ b/src/components/ui/DataTable.tsx
+@@
+-type Props<T> = { columns: Column<T>[]; rows: T[]; loading?: boolean; onRowClick?: (row: T) => void };
+-export function DataTable<T>({ columns, rows, loading, onRowClick }: Props<T>) {
++type Props<T> = {
++  columns: Column<T>[]; rows: T[]; loading?: boolean; onRowClick?: (row: T) => void;
++  // Extend (rule-version-history): optional row selection. Off by default → no change for existing usages
++  selectable?: boolean; maxSelected?: number; selectedIds?: string[];
++  getRowId?: (row: T) => string; getRowLabel?: (row: T) => string;
++  onSelectionChange?: (ids: string[]) => void;
++};
++export function DataTable<T>({ columns, rows, loading, onRowClick, selectable, maxSelected, selectedIds = [], getRowId, getRowLabel, onSelectionChange }: Props<T>) {
++  const toggle = (id: string) =>
++    onSelectionChange?.(selectedIds.includes(id) ? selectedIds.filter(x => x !== id) : [...selectedIds, id]);
+   if (loading) return <div className="animate-pulse h-32 bg-surface" />;
+   if (!rows.length) return <EmptyState title="Nothing here yet" />;
+   return (
+     <table className="w-full border border-border rounded-card">
+-      <thead><tr>{columns.map(c => <th key={String(c.key)} className="text-left p-2 text-muted">{c.header}</th>)}</tr></thead>
+-      <tbody>{rows.map((r, i) => <tr key={i} onClick={() => onRowClick?.(r)}>{columns.map(c => <td key={String(c.key)} className="p-2">{c.render ? c.render(r) : String(r[c.key])}</td>)}</tr>)}</tbody>
++      <thead><tr>{selectable && <th className="w-8" />}{columns.map(c => <th key={String(c.key)} className="text-left p-2 text-muted">{c.header}</th>)}</tr></thead>
++      <tbody>{rows.map((r, i) => {
++        const id = getRowId?.(r) ?? String(i);
++        const checked = selectedIds.includes(id);
++        const disabled = !checked && maxSelected !== undefined && selectedIds.length >= maxSelected;
++        return (
++          <tr key={id} onClick={() => onRowClick?.(r)}>
++            {selectable && <td className="p-2"><input type="checkbox" checked={checked} disabled={disabled} aria-label={getRowLabel?.(r) ?? `Select row ${i + 1}`} onClick={e => e.stopPropagation()} onChange={() => toggle(id)} /></td>}
++            {columns.map(c => <td key={String(c.key)} className="p-2">{c.render ? c.render(r) : String(r[c.key])}</td>)}
++          </tr>
++        );
++      })}</tbody>
+     </table>
+   );
+ }

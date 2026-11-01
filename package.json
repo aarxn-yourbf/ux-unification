@@ -1,0 +1,11 @@
+{
+  "name": "ux-unification",
+  "version": "1.2.0",
+  "description": "An AI agent skill that makes every new feature fit the product people already use: maps the current experience, places the feature, reuses existing patterns, and explains every decision.",
+  "repository": { "type": "git", "url": "git+https://github.com/aarxn-yourbf/ux-unification.git" },
+  "bin": { "ux-unification": "./bin/cli.js" },
+  "files": ["skills", "bin"],
+  "engines": { "node": ">=16.7" },
+  "keywords": ["ai", "agents", "agent-skills", "skill-md", "ux", "design-system", "product-design", "unification"],
+  "license": "MIT"
+}

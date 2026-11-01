@@ -1,0 +1,11 @@
+--- a/src/components/ui/Button.tsx
++++ b/src/components/ui/Button.tsx
+@@
+-type Props = { variant?: "primary" | "secondary" | "danger"; children: ReactNode; onClick?: () => void };
+-export function Button({ variant = "primary", children, onClick }: Props) {
++// Extend (rule-version-history): Compare is disabled until two versions are selected.
++type Props = { variant?: "primary" | "secondary" | "danger"; children: ReactNode; onClick?: () => void; disabled?: boolean };
++export function Button({ variant = "primary", children, onClick, disabled }: Props) {
+@@
+-  return <button className={`px-3 py-2 rounded-md ${styles[variant]}`} onClick={onClick}>{children}</button>;
++  return <button className={`px-3 py-2 rounded-md disabled:opacity-50 ${styles[variant]}`} onClick={onClick} disabled={disabled}>{children}</button>;

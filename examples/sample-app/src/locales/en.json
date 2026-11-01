@@ -1,0 +1,5 @@
+{
+  "nav": { "investigation": "Investigation", "alerts": "Alerts", "cases": "Cases", "strategy": "Strategy", "rules": "Rules", "plans": "Plans" },
+  "common": { "save": "Save changes", "cancel": "Cancel", "delete": "Delete", "empty": "Nothing here yet" },
+  "rules": { "title": "Rules", "new": "New rule", "status": "Status" }
+}

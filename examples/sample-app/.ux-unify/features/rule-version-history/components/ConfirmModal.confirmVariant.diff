@@ -1,0 +1,12 @@
+--- a/src/components/ui/ConfirmModal.tsx
++++ b/src/components/ui/ConfirmModal.tsx
+@@
+-type Props = { open: boolean; title: string; message: string; confirmText?: string; onConfirm: () => void; onCancel: () => void };
+-export function ConfirmModal({ open, title, message, confirmText = "Delete", onConfirm, onCancel }: Props) {
++// Extend (rule-version-history): non-destructive confirmations use the primary button.
++// Default stays "danger" → existing usage on RuleDetailPage unchanged.
++type Props = { open: boolean; title: string; message: string; confirmText?: string; confirmVariant?: "danger" | "primary"; onConfirm: () => void; onCancel: () => void };
++export function ConfirmModal({ open, title, message, confirmText = "Delete", confirmVariant = "danger", onConfirm, onCancel }: Props) {
+@@
+-        <div className="flex justify-end gap-2 mt-4"><Button variant="secondary" onClick={onCancel}>Cancel</Button><Button variant="danger" onClick={onConfirm}>{confirmText}</Button></div>
++        <div className="flex justify-end gap-2 mt-4"><Button variant="secondary" onClick={onCancel}>Cancel</Button><Button variant={confirmVariant} onClick={onConfirm}>{confirmText}</Button></div>

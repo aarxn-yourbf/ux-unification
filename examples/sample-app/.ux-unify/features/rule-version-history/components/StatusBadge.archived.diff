@@ -1,0 +1,6 @@
+--- a/src/components/ui/StatusBadge.tsx
++++ b/src/components/ui/StatusBadge.tsx
+@@
+-const tone = { active: "bg-green-100 text-green-800", draft: "bg-gray-100 text-muted", paused: "bg-yellow-100 text-yellow-800" };
++// Extend (rule-version-history): "archived" for past versions; reuses the neutral "draft" tone
++const tone = { active: "bg-green-100 text-green-800", draft: "bg-gray-100 text-muted", paused: "bg-yellow-100 text-yellow-800", archived: "bg-gray-100 text-muted" };
